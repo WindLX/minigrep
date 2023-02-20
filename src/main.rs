@@ -4,16 +4,14 @@ use std::env;
 use std::process;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    let config = minigrep::Config::new(&args).unwrap_or_else(|err| {
+    let config = minigrep::Config::new(env::args()).unwrap_or_else(|err| {
         eprintln!(
             "{}{}{}",
             " ERROR ".on_red().bold(),
             " Problem happens when parsing arguments: ".truecolor(207, 164, 10),
             err
         );
-        process::exit(1);
+        process::exit(-1);
     });
 
     println!(
@@ -32,6 +30,6 @@ fn main() {
             " Problem happens when running:".truecolor(207, 164, 10),
             err
         );
-        process::exit(1);
+        process::exit(-1);
     }
 }
